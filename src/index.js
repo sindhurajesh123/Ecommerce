@@ -3,11 +3,20 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import{Provider} from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
+import {store} from"./stateManager/reducer"
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+ 
+<Provider store={store}>
+  <div className="a8_flowWeb">
+<BrowserRouter>
+<App />
+</BrowserRouter>
+</div>
+</Provider>
 );
 
 

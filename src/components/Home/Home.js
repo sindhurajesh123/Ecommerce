@@ -2,18 +2,34 @@ import React, { useEffect, useState } from 'react'
 import './Home.css'
 import { getAllProducts } from '../../Apiservice/Api'
 import { Link } from 'react-router-dom'
+import {useDispatch,useSelector} from  "react-redux";
+import axios from 'axios';
+import { getData } from '../../stateManager/action/getData.action';
 function Home() {
-
+     const dispatch = useDispatch()
     const[products,setProducts] = useState([])
-    useEffect (() => {
-        const fetchProducts = async ()=>{
-            const data = await getAllProducts();
-        setProducts(data)
-        }
-        fetchProducts()
+   // useEffect (() => {
+        //const fetchProducts = async ()=>{
+           // const data = await getAllProducts();
+        //setProducts(data)
+        //}
+        //fetchProducts()
 
-    }, [])
-
+    //}, [])
+const {apiData}= useSelector((state)=>state.productData)
+    useEffect(() => {
+      axios.get("https://fakestoreapi.com/products").then((response)=> {
+      dispatch(getData({
+        type:"API_DATA",
+        items: response.data
+      }))
+      }) 
+    
+    },[])
+    useEffect(()=>{
+console.log(apiData);
+setProducts(apiData)
+    },[apiData])
 
   return (
     <div className='product-grid'>
